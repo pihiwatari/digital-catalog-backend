@@ -20,4 +20,6 @@ const UserSchema = new mongoose.Schema(
 // Validacion de incidencia de usuarios.
 UserSchema.plugin(uniqueValidator, 'This user already exists.');
 
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;

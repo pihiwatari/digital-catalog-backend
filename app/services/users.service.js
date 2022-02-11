@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const User = require('../schemas/user.schema');
 
 class UsersService {
   constructor() {
-    this.users = [{ id: 1 }, { id: 2 }];
+    this.users = User.find();
   }
 
   async find() {
-    return this.users;
+    return await this.users;
+  }
+
+  async findOne(id) {
+    return await User.findById(id);
   }
 
   async createUser(data) {
@@ -15,6 +19,10 @@ class UsersService {
     await user.save();
     return user;
   }
+
+  // async updateUser(id, data) {
+  //   const updatedUser = User.updateOne()
+  // }
 }
 
 module.exports = UsersService;

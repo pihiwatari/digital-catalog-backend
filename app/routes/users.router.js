@@ -17,10 +17,21 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:_id', async (req, res, next) => {
+  try {
+    const { _id } = req.params;
+    const user = await service.findOne(_id);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   const body = req.body;
   try {
-    //
+    const user = await service.createUser(body);
+    res.status(201).send(user);
   } catch (err) {
     next(err);
   }

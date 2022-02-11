@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const apiRouter = require('./routes');
 const mongoose = require('mongoose');
+const res = require('express/lib/response');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,27 +16,22 @@ app.use(express.json()); // Middleware for body in json format
 
 // [***** MONGOOSE OPTIONS *****]
 
-async function dbConnect() {
+async function connectDB() {
   try {
-    const db = await mongoose.connect('mongodb://localhost:27017/test'); // Test database
-    return db;
-  } catch (err) {
-    console.log(err);
+    console.log('Connecting to database');
+    await mongoose.connect('mongodb://localhost:27017/sample');
+    console.log('Connected to database');
+  } catch (error) {
+    res.status(500).send(error);
   }
 }
 
 // [***** MONGOOSE OPTIONS *****]
 
-app.get('/', async function (req, res) {
-  try {
-    const db = await dbConnect();
-    console.log(db);
-    res.send('hello world');
-  } catch (error) {
-    console.log(err);
-  }
-});
+app.get('/', (req, res, next) => res.send('Hola desde el home'));
+
+connectDB();
 
 apiRouter(app);
 
-app.listen(3000, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
