@@ -3,11 +3,11 @@ const User = require('../schemas/user.schema');
 
 class UsersService {
   constructor() {
-    this.users = User.find();
+    // this.users = User.find();
   }
 
   async find() {
-    return await this.users;
+    return await User.find();
   }
 
   async findOne(id) {

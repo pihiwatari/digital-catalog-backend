@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const bcrypt = require('bcrypt');
+const { hashSync } = require('bcrypt');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -13,6 +15,9 @@ const UserSchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     lastName: { type: String, required: true },
+    email: { type: String, requried: 'Please provide an email to register' },
+    password: {},
+    isAdmin: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
@@ -20,6 +25,10 @@ const UserSchema = new mongoose.Schema(
 // Validacion de incidencia de usuarios.
 UserSchema.plugin(uniqueValidator, 'This user already exists.');
 
-const User = mongoose.model('User', UserSchema);
+// Password management (hashing)
+UserSchema.pre('save', function (next) {
+  const salt = bcrypt.genSaltSync();
+  (this.password = bcrypt), hashSync();
+});
 
-module.exports = User;
+module.exports.User = mongoose.model('User', UserSchema);

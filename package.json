@@ -12,8 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "helmet": "^5.0.2",
     "mongoose": "^6.2.0",
     "mongoose-unique-validator": "^3.0.0"
   }
