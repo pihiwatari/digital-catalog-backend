@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ThreeDModel = new mongoose.Schema({
+const ThreeDModelSchema = new mongoose.Schema({
   name: { type: String, required: true },
   displayName: { type: String, required: true },
   dimensions: {
@@ -16,4 +16,6 @@ const ThreeDModel = new mongoose.Schema({
   revision: { type: Number, default: 1 },
 });
 
-module.exports.ThreeDModel = mongoose.model('3d model', ThreeDModel);
+const ThreeDModel = mongoose.model('3d model', ThreeDModelSchema);
+
+module.exports.ThreeDModel = ThreeDModel;

@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const apiRouter = require('./routes');
 const mongoose = require('mongoose');
-const res = require('express/lib/response');
+const helmet = require('helmet');
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -9,4 +9,6 @@ const MaterialSchema = new mongoose.Schema({
 
 MaterialSchema.plugin(uniqueValidator, 'This material already exists');
 
-module.exports.Material = mongoose.model('Material', MaterialSchema);
+const Material = mongoose.model('Material', MaterialSchema);
+
+module.exports.Material = Material;

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const User = require('../schemas/user.schema');
 
 class UsersService {
@@ -7,11 +6,17 @@ class UsersService {
   }
 
   async find() {
-    return await User.find();
+    const users = await User.find();
+    return users;
   }
 
-  async findOne(id) {
-    return await User.findById(id);
+  async findOne(id, password) {
+    const user = await User.findById(id);
+
+    // Test matching password
+    const isMatch = await user.comparePassword(password);
+
+    if (isMatch) return user;
   }
 
   async createUser(data) {
@@ -20,9 +25,10 @@ class UsersService {
     return user;
   }
 
-  // async updateUser(id, data) {
-  //   const updatedUser = User.updateOne()
-  // }
+  async updateUser(id, data) {
+    const user = await User.findById(id);
+    return user, data; // aqui hay que seguirle
+  }
 }
 
 module.exports = UsersService;

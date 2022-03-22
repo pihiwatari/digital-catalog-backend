@@ -17,4 +17,6 @@ const PrinterSchema = new mongoose.Schema({
 
 PrinterSchema.plugin(uniqueValidator, 'This machine already exists');
 
-module.exports.Printer = mongoose.model('3d printer', PrinterSchema);
+const Printer = mongoose.model('3d printer', PrinterSchema);
+
+module.exports.Printer = Printer;

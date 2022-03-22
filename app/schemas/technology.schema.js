@@ -16,4 +16,6 @@ const TechnologySchema = new mongoose.Schema({
 // Validacion de incidencia de elementos.
 TechnologySchema.plugin(uniqueValidator, 'This machine already exists.');
 
-module.exports.Technology = mongoose.model('Technology', TechnologySchema);
+const Technology = mongoose.model('Technology', TechnologySchema);
+
+module.exports.Technology = Technology;
