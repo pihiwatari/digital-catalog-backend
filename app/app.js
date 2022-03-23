@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(helmet());
 app.use(cors());
-app.use(express.json()); // Middleware for receive data within body in json format
+app.use(express.json()); // Middleware for receiving data within body in json format
 
 // [***** MONGOOSE OPTIONS *****]
 
@@ -22,7 +22,7 @@ async function connectDB() {
 
   try {
     console.log('Connecting to database');
-    await mongoose.connect('mongodb://127.0.0.1:27017/sample');
+    await mongoose.connect('mongodb://127.0.0.1:27017/sample'); // Local database
     console.log('Connected to database');
   } catch (error) {
     res.status(500).send(error);

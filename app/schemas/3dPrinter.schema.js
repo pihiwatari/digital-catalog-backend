@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-// const Material = require('./material.schema');
-
 const PrinterSchema = new mongoose.Schema({
   brandName: { type: String, required: true },
   modelName: { type: String, required: true, unique: true, lowercase: true },

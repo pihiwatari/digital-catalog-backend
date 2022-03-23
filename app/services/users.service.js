@@ -1,33 +1,65 @@
 const User = require('../schemas/user.schema');
 
 class UsersService {
-  constructor() {
-    // this.users = User.find();
+  async findUsers(req, res, next) {
+    try {
+      const users = await User.find();
+      res.status(200).json(users);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async find() {
-    const users = await User.find();
-    return users;
+  async findOneUser(req, res, next) {
+    const { _id } = req.params;
+    const { password } = req.body;
+    try {
+      const user = await User.findById(_id);
+
+      // Password matching
+      const isMatch = await user.comparePassword(password);
+
+      if (isMatch) res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async findOne(id, password) {
-    const user = await User.findById(id);
-
-    // Test matching password
-    const isMatch = await user.comparePassword(password);
-
-    if (isMatch) return user;
+  async createUser(req, res, next) {
+    const body = req.body;
+    try {
+      const newUser = await User.create(body);
+      res.status(201).json(newUser);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async createUser(data) {
-    const user = new User(data); // data is received from body request object.
-    await user.save();
-    return user;
+  async updateUser(req, res, next) {
+    const { _id } = req.params;
+    const data = req.body;
+    try {
+      let user = await User.findById(_id);
+      user.set(data);
+      await user.save();
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async updateUser(id, data) {
-    const user = await User.findById(id);
-    return user, data; // aqui hay que seguirle
+  async deleteUser(req, res, next) {
+    const { _id } = req.params;
+    const { password } = req.body;
+    try {
+      const user = await User.findById(_id);
+      const isMatch = await user.comparePassword(password);
+
+      if (isMatch) await user.deleteOne({ _id: _id });
+      res.status(200).json(user.username);
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

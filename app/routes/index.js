@@ -1,5 +1,6 @@
 const express = require('express');
 const usersRouter = require('./users.router');
+const technologiesRouter = require('./technologies.router');
 
 function apiRouter(app) {
   const router = express.Router();
@@ -11,6 +12,7 @@ function apiRouter(app) {
   // [***** USING ENDPOINT ROUTERS *****]
 
   router.use('/users', usersRouter);
+  router.use('/technologies', technologiesRouter);
 }
 
 module.exports = apiRouter;
