@@ -3,8 +3,9 @@ const Technology = require('../schemas/technology.schema');
 class TechnologiesService {
   async findTechnologies(req, res, next) {
     try {
-      const technologies = await Technology.find();
-      res.status(200).json(technologies);
+      Technology.find()
+        .populate('materials')
+        .exec((err, docs) => res.status(200).json(docs));
     } catch (error) {
       next(error);
     }
@@ -13,9 +14,9 @@ class TechnologiesService {
   async findOneTechnology(req, res, next) {
     const { _id } = req.params;
     try {
-      const technology = await Technology.findById(_id);
-
-      res.status(200).json(technology);
+      Technology.findById(_id)
+        .populate('materials')
+        .exec((err, doc) => res.status(200).json(doc));
     } catch (error) {
       next(error);
     }
@@ -50,7 +51,7 @@ class TechnologiesService {
       const technology = await Technology.findById(_id);
 
       await technology.deleteOne({ _id: _id });
-      res.status(200).json(technology.technologyname);
+      res.status(200).json(technology);
     } catch (error) {
       next(error);
     }

@@ -1,6 +1,8 @@
 const express = require('express');
 const usersRouter = require('./users.router');
 const technologiesRouter = require('./technologies.router');
+const materialsRouter = require('./materials.router');
+const printersRouter = require('./3dPrinters.router');
 
 function apiRouter(app) {
   const router = express.Router();
@@ -13,6 +15,8 @@ function apiRouter(app) {
 
   router.use('/users', usersRouter);
   router.use('/technologies', technologiesRouter);
+  router.use('/materials', materialsRouter);
+  router.use('/printers', printersRouter);
 }
 
 module.exports = apiRouter;
