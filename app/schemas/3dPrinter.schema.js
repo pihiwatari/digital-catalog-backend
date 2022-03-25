@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const PrinterSchema = new mongoose.Schema({
   OEMName: { type: String, required: true },
@@ -12,8 +11,6 @@ const PrinterSchema = new mongoose.Schema({
   },
   technology: { type: mongoose.Schema.Types.ObjectId, ref: 'Technology' },
 });
-
-PrinterSchema.plugin(uniqueValidator, 'This machine already exists');
 
 const Printer = mongoose.model('3d printer', PrinterSchema);
 

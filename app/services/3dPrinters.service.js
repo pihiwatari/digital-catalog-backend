@@ -3,8 +3,9 @@ const Printer = require('../schemas/3dPrinter.schema');
 class PrintersService {
   async findPrinters(req, res, next) {
     try {
-      const printers = await Printer.find();
-      res.status(200).json(printers);
+      Printer.find()
+        .populate('materials')
+        .exec((err, docs) => res.status(200).json(docs));
     } catch (error) {
       next(error);
     }
@@ -13,9 +14,9 @@ class PrintersService {
   async findOnePrinter(req, res, next) {
     const { _id } = req.params;
     try {
-      const printer = await Printer.findById(_id);
-
-      res.status(200).json(printer);
+      Printer.findById(_id)
+        .populate('materials')
+        .exec((err, doc) => res.status(200).json(doc));
     } catch (error) {
       next(error);
     }
