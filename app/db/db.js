@@ -13,7 +13,7 @@ async function connectDB() {
 
     console.log('Connected to database');
   } catch (error) {
-    console.log(error);
+    console.log('Database refused connection', error);
   }
 }
 

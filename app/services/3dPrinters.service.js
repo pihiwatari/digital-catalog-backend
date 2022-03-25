@@ -5,6 +5,7 @@ class PrintersService {
     try {
       Printer.find()
         .populate('materials')
+        .populate('technology')
         .exec((err, docs) => res.status(200).json(docs));
     } catch (error) {
       next(error);
@@ -16,6 +17,7 @@ class PrintersService {
     try {
       Printer.findById(_id)
         .populate('materials')
+        .populate('technology')
         .exec((err, doc) => res.status(200).json(doc));
     } catch (error) {
       next(error);
@@ -36,9 +38,7 @@ class PrintersService {
     const { _id } = req.params;
     const data = req.body;
     try {
-      let printer = await Printer.findById(_id);
-      printer.set(data);
-      await printer.save();
+      let printer = await Printer.findByIdAndUpdate(_id, data, { new: true });
       res.status(200).json(printer);
     } catch (error) {
       next(error);

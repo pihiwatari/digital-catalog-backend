@@ -36,9 +36,9 @@ class TechnologiesService {
     const { _id } = req.params;
     const data = req.body;
     try {
-      let technology = await Technology.findById(_id);
-      technology.set(data);
-      await technology.save();
+      let technology = await Technology.findByIdAndUpdate(_id, data, {
+        new: true,
+      });
       res.status(200).json(technology);
     } catch (error) {
       next(error);

@@ -35,9 +35,7 @@ class MaterialsService {
     const { _id } = req.params;
     const data = req.body;
     try {
-      let material = await Material.findById(_id);
-      material.set(data);
-      await material.save();
+      let material = await Material.findByIdAndUpdate(_id, data, { new: true });
       res.status(200).json(material);
     } catch (error) {
       next(error);

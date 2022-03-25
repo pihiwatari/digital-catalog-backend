@@ -8,7 +8,7 @@ const TechnologySchema = new mongoose.Schema({
     lowercase: true, // set this to lower case to match function in unique field.
     index: true,
   },
-  baseMaterial: String,
+  baseMaterial: { type: String, required: true },
   materials: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -37,7 +37,7 @@ class UsersService {
 
   async updateUser(req, res, next) {
     const { _id } = req.params;
-    const data = req.body;
+    let data = req.body;
     try {
       let user = await User.findById(_id);
       user.set(data);
